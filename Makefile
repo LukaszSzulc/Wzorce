@@ -23,7 +23,24 @@ target all:
 	zad2/src/WzorceProjektowe_Labirynt.cpp \
 	-o zad2/bin/zad2;
 
+	test -d zad3/bin || mkdir -p zad3/bin
+	clang++ -std=c++11 -stdlib=libstdc++ \
+	zad3/src/BudowniczyLabiryntu.cpp \
+	zad3/src/BudowniczyLabiryntuSingleton.cpp \
+	zad3/src/FabrykaLabiryntu.cpp \
+	zad3/src/FabrykaLabiryntuZPrototypami.cpp \
+	zad3/src/Kontroler.cpp \
+	zad3/src/Model.cpp \
+	zad3/src/Widok.cpp \
+	zad3/src/WzorceProjektowe_Labirynt.cpp \
+	-o zad3/bin/zad3;
+
 	test -d zad4/bin || mkdir -p zad4/bin
 	clang++ -std=c++11 -stdlib=libstdc++ \
 	zad4/src/singleton.cpp \
 	-o zad4/bin/zad4;
+
+	test -d zad5/bin || mkdir -p zad5/bin
+	clang++ -std=c++11 -stdlib=libstdc++ \
+	zad5/src/iterator.cpp \
+	-o zad5/bin/zad5;
