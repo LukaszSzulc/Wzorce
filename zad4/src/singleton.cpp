@@ -44,10 +44,8 @@ class ObjectPool {
 
         Resource* getResource() {
             if (resources.empty()) {
-                std::cout << "Creating new." << std::endl;
                 return new Resource;
             } else {
-                std::cout << "Reusing existing." << std::endl;
                 Resource* resource = resources.front();
                 resources.pop_front();
                 return resource;
