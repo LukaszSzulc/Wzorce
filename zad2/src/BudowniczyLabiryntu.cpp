@@ -1,10 +1,10 @@
 #include "BudowniczyLabiryntu.h"
 #include <stdexcept>
 
-void BudowniczyLabiryntu::RozpocznijBudowę(int liczbaKomórek, int indeksPoczątkowejKomórki, int indeksCelu)
+void BudowniczyLabiryntu::RozpocznijBudowę(int liczbaKomórek, int indeksPoczątku, int indeksCelu)
 {
 	this->liczbaKomórek = liczbaKomórek;
-	budowanyLabirynt = new Labirynt(liczbaKomórek, indeksPoczątkowejKomórki, indeksCelu);
+	budowanyLabirynt = new Labirynt(liczbaKomórek, indeksPoczątku, indeksCelu);
 	komórki = new PKomórka[liczbaKomórek];
 	for (int i = 0; i < liczbaKomórek; i++) komórki[i] = new Komórka(i);
 	czyLabiryntZbudowany = false;
@@ -13,7 +13,7 @@ void BudowniczyLabiryntu::RozpocznijBudowę(int liczbaKomórek, int indeksPoczą
 void BudowniczyLabiryntu::ZakończBudowę()
 {
 	for (int i = 0; i < liczbaKomórek; ++i) budowanyLabirynt->DodajKomórkę(i, komórki[i]);
-	delete[] komórki; //usuwa tablicę, ale nie elementy
+	delete[] komórki;
 	komórki = NULL;
 	czyLabiryntZbudowany = true;
 }
@@ -48,19 +48,19 @@ Labirynt* BudowniczyLabiryntu::PobierzLabirynt()
 //----------------------------
 
 //założenie upraszczające, którego nie ma w oryginalnych klasach
-void StandardowyBudowniczyLabiryntu::WiążKomórki(int indeks1, int indeks2, Kierunek kierunekOd1Do2)
-{
+void StandardowyBudowniczyLabiryntu::WiążKomórki(int indeks1, int indeks2, Kierunek kierunek)
+{	//kierunek od indeks1 do indeks2
 	Sprawdź(indeks1, indeks2);
-	komórki[indeks1]->PowiążZMiejscem(kierunekOd1Do2, komórki[indeks2]);
-	komórki[indeks2]->PowiążZMiejscem(PrzeciwnyKierunek(kierunekOd1Do2), komórki[indeks1]);
+	komórki[indeks1]->PowiążZMiejscem(kierunek, komórki[indeks2]);
+	komórki[indeks2]->PowiążZMiejscem(PrzeciwnyKierunek(kierunek), komórki[indeks1]);
 }
 
-void StandardowyBudowniczyLabiryntu::WstawDrzwiMiędzyKomórki(int indeks1, int indeks2, Kierunek kierunekOd1Do2)
-{
+void StandardowyBudowniczyLabiryntu::WstawDrzwiMiędzyKomórki(int indeks1, int indeks2, Kierunek kierunek)
+{ //kierunek od indeks1 do indeks2
 	Sprawdź(indeks1, indeks2);
 	Drzwi* drzwi = new Drzwi(indeks1, indeks2);
-	komórki[indeks1]->PowiążZMiejscem(kierunekOd1Do2, drzwi);
-	komórki[indeks2]->PowiążZMiejscem(PrzeciwnyKierunek(kierunekOd1Do2), drzwi);
+	komórki[indeks1]->PowiążZMiejscem(kierunek, drzwi);
+	komórki[indeks2]->PowiążZMiejscem(PrzeciwnyKierunek(kierunek), drzwi);
 }
 
 //----------------------------
